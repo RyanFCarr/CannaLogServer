@@ -46,7 +46,7 @@ builder.Services.AddCors(options =>
   options.AddPolicy(name: allowedOriginsPolicy,
                     policy =>
                     {
-                      policy.WithOrigins("http://localhost:3000", "https://canna-log.herokuapp.com/")
+                      policy.WithOrigins("http://localhost:3000", "https://canna-log.herokuapp.com")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                     });
