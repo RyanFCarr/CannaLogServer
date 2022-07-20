@@ -23,6 +23,9 @@ namespace Server.Models
             CreateMap<AdditiveDosage, AdditiveDosageDto>();
             CreateMap<AdditiveDosageSaveDto, AdditiveDosage>()
                 .ForMember(dest => dest.Additive, opt => opt.Ignore());
+
+            CreateMap<Additive, AdditiveDto>();
+            CreateMap<AdditiveSaveDto, Additive>();
         }
 
         private static List<AdditiveAdjustmentSaveDto>? CreateAdjustments(AdditiveAdjustmentSaveDto? nute, AdditiveAdjustmentSaveDto? ph)
