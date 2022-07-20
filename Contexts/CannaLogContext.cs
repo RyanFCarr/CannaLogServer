@@ -20,9 +20,6 @@ namespace Server.Contexts
         {
             #region Plant
             modelBuilder.Entity<Plant>()
-                .Property(p => p.Age)
-                .HasComputedColumnSql("CASE WHEN TransplantDate IS NULL THEN NULL ELSE DATEDIFF(DAY, TransplantDate, COALESCE(HarvestDate, GETDATE())) END");
-            modelBuilder.Entity<Plant>()
                 .Property(p => p.TargetPH)
                 .HasPrecision(3, 1);
             #endregion

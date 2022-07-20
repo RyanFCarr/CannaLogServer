@@ -9,8 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Add DbContexts
-builder.Services.AddDbContext<CannaLogContext>(b => b.UseSqlServer(builder.Configuration.GetConnectionString("CannaLog")));
+// Add DbContext
+string conn = builder.Configuration.GetConnectionString("CannaLog");
+var dbServerVersion = ServerVersion.AutoDetect(conn);
+builder.Services.AddDbContext<CannaLogContext>(b => {
+    b.UseMySql(conn, dbServerVersion)
+#if DEBUG
+    .LogTo(Console.WriteLine, LogLevel.Information)
+    .EnableSensitiveDataLogging()
+    .EnableDetailedErrors()
+#endif
+    ;
+    });
 
 // Add Services and Repos
 builder.Services.AddScoped<IPlantService, PlantService>();

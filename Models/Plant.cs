@@ -18,7 +18,6 @@ namespace Server.Models
     public string GrowMedium { get; set; }
     public string Status { get; set; }
     public string? TerminationReason { get; set; }
-    public int? Age { get; set; }
     public IEnumerable<GrowLog> GrowLogs { get; set; }
   }
 
@@ -39,7 +38,7 @@ namespace Server.Models
     public string GrowMedium { get; set; }
     public string Status { get; set; }
     public string? TerminationReason { get; set; }
-    public int? Age { get; set; }
+    public int? Age { get { return TransplantDate == null ? null : ((int)((HarvestDate == null ? DateTime.Now : HarvestDate.Value) - TransplantDate.Value).TotalDays); } }
   }
 
     public class PlantSaveDto
