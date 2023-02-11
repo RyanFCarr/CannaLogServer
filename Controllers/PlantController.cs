@@ -50,5 +50,12 @@ namespace Server.Controllers
             var updatedPlant = _plantService.Update(_mapper.Map<Plant>(plant, opts => opts.AfterMap((o,p) => p.Id = id)));
             return Ok(_mapper.Map<PlantDto>(updatedPlant));
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            _plantService.Delete(id);
+            return Ok();
+        }
     }
 }
