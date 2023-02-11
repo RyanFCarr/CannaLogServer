@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Server.Contexts
 {
@@ -11,10 +13,25 @@ namespace Server.Contexts
         public DbSet<AdditiveAdjustment> AdditiveAdjustments { get; set; }
         public DbSet<AdditiveDosage> AdditiveDosages { get; set; }
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public CannaLogContext(DbContextOptions<CannaLogContext> options) : base(options) { }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string conn = string.Format(
+                "Data Source={0};Database={1};User Id={2};Password={3};",
+                Environment.GetEnvironmentVariable("MYSQL_SOURCE"),
+                Environment.GetEnvironmentVariable("MYSQL_DB"),
+                Environment.GetEnvironmentVariable("MYSQL_USER"),
+                Environment.GetEnvironmentVariable("MYSQL_PW")
+                );
 
+            var dbServerVersion = ServerVersion.AutoDetect(conn);
+            optionsBuilder.UseMySql(conn, dbServerVersion)
+        #if DEBUG
+            .LogTo(Console.WriteLine, LogLevel.Information)
+            .EnableSensitiveDataLogging()
+            .EnableDetailedErrors()
+        #endif
+            ;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

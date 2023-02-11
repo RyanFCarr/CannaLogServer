@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+using Server;
 using Server.Contexts;
 using Server.Models;
 using Server.Repositories;
@@ -10,17 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Add DbContext
-string conn = builder.Configuration.GetConnectionString("CannaLog");
-var dbServerVersion = ServerVersion.AutoDetect(conn);
-builder.Services.AddDbContext<CannaLogContext>(b => {
-    b.UseMySql(conn, dbServerVersion)
-#if DEBUG
-    .LogTo(Console.WriteLine, LogLevel.Information)
-    .EnableSensitiveDataLogging()
-    .EnableDetailedErrors()
-#endif
-    ;
-    });
+builder.Services.AddDbContext<CannaLogContext>();
 
 // Add Services and Repos
 builder.Services.AddScoped<IPlantService, PlantService>();
@@ -46,9 +36,9 @@ builder.Services.AddCors(options =>
   options.AddPolicy(name: allowedOriginsPolicy,
                     policy =>
                     {
-                      policy.WithOrigins("http://localhost:3000", "https://canna-log.herokuapp.com")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
+                      //policy.WithOrigins("http://localhost:3000", "https://canna-log.herokuapp.com")
+                      //    .AllowAnyHeader()
+                      //    .AllowAnyMethod();
                     });
 });
 
@@ -68,4 +58,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app
+    .MigrateDatabase<CannaLogContext>()
+    .Run();

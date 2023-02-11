@@ -1,0 +1,26 @@
+services:
+  db:
+    image: mysql:8.0.32
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping"]
+      interval: 2s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_PW
+    volumes:
+      - mysql:/var/lib/mysql
+
+  server:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 80:80
+    env_file: .env
+
+volumes:
+  mysql:
