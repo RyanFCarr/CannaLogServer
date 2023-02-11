@@ -14,7 +14,6 @@ WORKDIR "/src/."
 RUN dotnet build "Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet tool restore
 RUN dotnet publish "Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
