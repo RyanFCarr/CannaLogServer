@@ -29,6 +29,9 @@ builder.Services.AddAutoMapper(cfg => {
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<CannaLogContext>();
+
 // CORS BS
 var allowedOriginsPolicy = "allowedOriginsPolicy";
 builder.Services.AddCors(options =>
@@ -57,6 +60,7 @@ app.UseCors(allowedOriginsPolicy);
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 app
     .MigrateDatabase<CannaLogContext>()

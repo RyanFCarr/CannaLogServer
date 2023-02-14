@@ -15,11 +15,13 @@ services:
 
   server:
     build: .
+    restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
     ports:
-      - 80:80
+      - 5080:80
+      - 5443:443
     env_file: .env
 
 volumes:
