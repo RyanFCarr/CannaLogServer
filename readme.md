@@ -6,7 +6,7 @@ https://localhost:5443/swagger
 `docker compose --profile dev up -d --build`
 
 ## For Dev ssl certificate
-### Replace \$CREDENTIAL\_PLACEHOLDER\$ with a password. This password needs to go in the ENV
+### Replace `$CREDENTIAL_PLACEHOLDER$` with a password. This password needs to go in the ENV
 ```
 dotnet dev-certs https -ep "$env:USERPROFILE\.aspnet\https\aspnetapp.pfx"  -p $CREDENTIAL_PLACEHOLDER$
 dotnet dev-certs https --trust
