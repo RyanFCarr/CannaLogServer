@@ -44,7 +44,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     volumes:
-      - ~/.env/https:/https:ro
+      - ~/.env/https/cannalog:/https:ro
 
 volumes:
   mysql:
