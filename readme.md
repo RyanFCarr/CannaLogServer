@@ -18,6 +18,7 @@ MYSQL_SOURCE=
 MYSQL_DB=
 MYSQL_USER=
 MYSQL_PW=
-ASPNETCORE_URLS=https://+:443;http://+:80 #This one is shared
-KESTREL_CERTIFICATE_PASSWORD=
+ASPNETCORE_URLS=https://+:443;http://+:80
+ASPNETCORE_Kestrel__Certificates__Default__Password=
+ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
 ```

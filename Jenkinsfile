@@ -4,7 +4,7 @@ pipeline {
 	stages {
 		stage('Build') {
 			steps {
-				echo 'Building...'
+                sh 'dotnet clean && dotnet build'
 			}
 		}
 		stage('Test') {
@@ -19,7 +19,10 @@ pipeline {
               }
             }
             steps {
-                echo 'Deploying....'
+                sh 'openssl pkcs12 -export -inkey ../../.env/https/privkey.pem -in ../../.env/https/fullchain.pem -name aspnetapp -out ../../.env/https/aspnetapp.pfx'
+                withEnv(readFile('../../.env/cannaLogServer.prod.env').split('\n') as List) {
+                    sh 'docker-compose --profile prod up -d'
+                }
             }
         }
 	}
