@@ -4,11 +4,9 @@ services:
     env_file: .env
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping"]
+      test: "/usr/bin/mysql --user=${MYSQL_USER} --password=${MYSQL_PASSWORD} --execute \"SHOW DATABASES;\""
       interval: 2s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
+      retries: 10
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=true
     volumes:
