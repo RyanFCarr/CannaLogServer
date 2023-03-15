@@ -1,23 +1,18 @@
 ﻿## URLs
 http://localhost:5080/swagger
-https://localhost:5443/swagger
 
 ## Run compose
-`docker compose --profile dev up -d --build`
+Add `--build` to the `up` command whenever there are Server code changes to make it rebuild
+`docker compose up -d`
 
-## For Dev ssl certificate
-### Replace `$CREDENTIAL_PLACEHOLDER$` with a password. This password needs to go in the ENV
-```
-dotnet dev-certs https -ep "$env:USERPROFILE\.aspnet\https\aspnetapp.pfx"  -p $CREDENTIAL_PLACEHOLDER$
-dotnet dev-certs https --trust
-```
+Add `-v` to the `down` command to have it also remove any created volumes and start completely fresh. THIS WILL DELETED ALL DATA.
+`docker compose down`
 
 ## ENV
+### Mostly used by Docker build. Dev envs are set in launch settings
 ```
 MYSQL_SOURCE=
-MYSQL_DB=
+MYSQL_DATABASE=
 MYSQL_USER=
-MYSQL_PW=
-ASPNETCORE_URLS=https://+:443;http://+:80 #This one is shared
-KESTREL_CERTIFICATE_PASSWORD=
+MYSQL_PASSWORD=
 ```

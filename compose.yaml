@@ -1,6 +1,7 @@
 services:
   db:
     image: mysql:8.0.32
+    env_file: .env
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "mysqladmin", "ping"]
@@ -9,47 +10,30 @@ services:
       retries: 3
       start_period: 10s
     environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_PW
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
     volumes:
       - mysql:/var/lib/mysql
 
-  server-dev:
-    profiles:
-      - dev
+  server:
     build: .
+    env_file: .env
     restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
     ports:
       - 5080:80
-      - 5443:443
-    env_file: .env
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=$KESTREL_CERTIFICATE_PASSWORD
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-    volumes:
-      - ~/.aspnet/https:/https:ro
-
-  server-prod:
-    profiles:
-      - prod
-    build: .
-    restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
-    ports:
-      - 5080:80
-      - 5443:443
-    env_file: .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=$KESTREL_CERTIFICATE_PASSWORD
-      #- ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-    #volumes:
-    #  - ~/.aspnet/https:/https:ro
+      - ASPNETCORE_URLS=http://+:80
+      - MYSQL_SOURCE=db
+
+  #client:
+  #  build: ../CannaLog
+  #  restart: unless-stopped
+  #  ports:
+  #    - 3080:3000
+
 
 volumes:
   mysql:
