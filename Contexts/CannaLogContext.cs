@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Models;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Server.Contexts
 {
@@ -18,9 +16,9 @@ namespace Server.Contexts
             string conn = string.Format(
                 "Data Source={0};Database={1};User Id={2};Password={3};",
                 Environment.GetEnvironmentVariable("MYSQL_SOURCE"),
-                Environment.GetEnvironmentVariable("MYSQL_DB"),
+                Environment.GetEnvironmentVariable("MYSQL_DATABASE"),
                 Environment.GetEnvironmentVariable("MYSQL_USER"),
-                Environment.GetEnvironmentVariable("MYSQL_PW")
+                Environment.GetEnvironmentVariable("MYSQL_PASSWORD")
                 );
 
             var dbServerVersion = ServerVersion.AutoDetect(conn);
