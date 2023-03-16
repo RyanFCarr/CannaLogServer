@@ -15,9 +15,9 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "MYSQL_SOURCE": "host.docker.internal",
-        "MYSQL_DB": "cannalog",
-        "MYSQL_USER": "root",
-        "MYSQL_PW": "rootroot"
+        "MYSQL_DATABASE": "cannalog",
+        "MYSQL_USER": "svc_cannalog",
+        "MYSQL_PASSWORD": "SimplePW1!"
       },
       "publishAllPorts": true
     },
@@ -28,9 +28,9 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "MYSQL_SOURCE": "localhost",
-        "MYSQL_DB": "cannalog",
+        "MYSQL_DATABASE": "cannalog",
         "MYSQL_USER": "root",
-        "MYSQL_PW": "rootroot"
+        "MYSQL_PASSWORD": "rootroot"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5080"
