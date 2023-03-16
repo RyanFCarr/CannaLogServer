@@ -32,18 +32,22 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<CannaLogContext>();
 
-// CORS BS
+// CORS
 var allowedOriginsPolicy = "allowedOriginsPolicy";
-builder.Services.AddCors(options =>
+var corsOrigin = Environment.GetEnvironmentVariable("CORS_ORIGIN");
+if (!string.IsNullOrEmpty(corsOrigin))
 {
-  options.AddPolicy(name: allowedOriginsPolicy,
-                    policy =>
-                    {
-                      //policy.WithOrigins("http://localhost:3000", "https://canna-log.herokuapp.com")
-                      //    .AllowAnyHeader()
-                      //    .AllowAnyMethod();
-                    });
-});
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: allowedOriginsPolicy,
+                          policy =>
+                          {
+                              policy.WithOrigins(corsOrigin)
+                                  .AllowAnyHeader()
+                                  .AllowAnyMethod();
+                          });
+    });
+}
 
 var app = builder.Build();
 

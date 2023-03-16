@@ -17,7 +17,8 @@
         "MYSQL_SOURCE": "host.docker.internal",
         "MYSQL_DATABASE": "cannalog",
         "MYSQL_USER": "svc_cannalog",
-        "MYSQL_PASSWORD": "SimplePW1!"
+        "MYSQL_PASSWORD": "SimplePW1!",
+        "CORS_ORIGIN": "http://localhost:3000"
       },
       "publishAllPorts": true
     },
@@ -30,7 +31,8 @@
         "MYSQL_SOURCE": "localhost",
         "MYSQL_DATABASE": "cannalog",
         "MYSQL_USER": "root",
-        "MYSQL_PASSWORD": "rootroot"
+        "MYSQL_PASSWORD": "rootroot",
+        "CORS_ORIGIN": "http://localhost:3000"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5080"
