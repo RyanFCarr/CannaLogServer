@@ -12,16 +12,14 @@ pipeline {
                 echo 'Testing..'
             }
         }
-        stage('Deploy') {
+        stage('Docker Build') {
 		    when {
               expression {
                 currentBuild.result == null || currentBuild.result == 'SUCCESS' 
               }
             }
             steps {
-                withEnv(readFile('../../.env/cannalog-server.env').split('\n') as List) {
-                    sh 'docker build -t cannalog-server .'
-                }
+                sh 'docker build -t cannalog-server .'
             }
         }
 	}
