@@ -1,6 +1,9 @@
 ﻿## URLs
 http://localhost:5080/swagger
 
+## Build Docker image
+`docker build -t cannalog-server .`
+
 ## Run compose
 Add `--build` to the `up` command whenever there are Server code changes to make it rebuild
 `docker compose up -d`
