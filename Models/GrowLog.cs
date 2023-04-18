@@ -22,6 +22,7 @@ namespace Server.Models
         public int PlantAge { get; set; }
         public decimal? PlantHeight { get; set; }
         public string? Tags { get; set; }
+        public bool IsDeleted { get; set; }
     }
 
     public class GrowLogDto
@@ -44,6 +45,7 @@ namespace Server.Models
         public int PlantAge { get; set; }
         public decimal? PlantHeight { get; set; }
         public string? Tags { get; set; }
+        public bool IsDeleted { get; set; }
     }
 
     public class GrowLogSaveDto
@@ -65,6 +67,7 @@ namespace Server.Models
         public int PlantAge { get; set; }
         public decimal? PlantHeight { get; set; }
         public string? Tags { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

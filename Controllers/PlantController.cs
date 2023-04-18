@@ -23,7 +23,7 @@ namespace Server.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll() => Ok(_plantService.GetAll().Select(p => _mapper.Map<PlantDto>(p)));
+        public IActionResult GetAll() => Ok(_plantService.GetAll(p => !p.IsDeleted).Select(p => _mapper.Map<PlantDto>(p)));
 
         [HttpGet("{id}", Name = "GetPlantById")]
         public IActionResult GetById([FromRoute] int id)
@@ -52,7 +52,7 @@ namespace Server.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public IActionResult Delete([FromRoute] int id) 
         {
             _plantService.Delete(id);
             return Ok();
