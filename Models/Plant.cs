@@ -19,6 +19,7 @@ namespace Server.Models
     public string Status { get; set; }
     public string? TerminationReason { get; set; }
     public IEnumerable<GrowLog> GrowLogs { get; set; }
+    public bool IsDeleted { get; set; }
   }
 
   public class PlantDto
@@ -39,6 +40,7 @@ namespace Server.Models
     public string Status { get; set; }
     public string? TerminationReason { get; set; }
     public int? Age { get { return TransplantDate == null ? null : ((int)((HarvestDate == null ? DateTime.Now : HarvestDate.Value) - TransplantDate.Value).TotalDays); } }
+    public bool IsDeleted { get; set; }
   }
 
     public class PlantSaveDto
@@ -57,6 +59,7 @@ namespace Server.Models
         public string GrowMedium { get; set; }
         public string Status { get; set; }
         public string? TerminationReason { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

@@ -28,7 +28,8 @@ namespace Server.Repositories
 
             if (plant == null) throw new ArgumentException("Plant not found");
 
-            _context.Remove(plant);
+            plant.IsDeleted = true;
+
             _context.SaveChanges();
         }
 

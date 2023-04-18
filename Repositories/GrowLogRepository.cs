@@ -28,7 +28,8 @@ namespace Server.Repositories
 
             if (growLog == null) throw new ArgumentException("GrowLog not found");
 
-            _context.Remove(growLog);
+            growLog.IsDeleted = true;
+
             _context.SaveChanges();
         }
 
