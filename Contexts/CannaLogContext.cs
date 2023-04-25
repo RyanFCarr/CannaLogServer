@@ -10,6 +10,7 @@ namespace Server.Contexts
         public DbSet<Additive> Additives { get; set; }
         public DbSet<AdditiveAdjustment> AdditiveAdjustments { get; set; }
         public DbSet<AdditiveDosage> AdditiveDosages { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,8 +32,7 @@ namespace Server.Contexts
             ;
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
             #region Plant
             modelBuilder.Entity<Plant>()
                 .Property(p => p.TargetPH)
@@ -75,6 +75,10 @@ namespace Server.Contexts
             modelBuilder.Entity<AdditiveDosage>()
                 .Property(p => p.Amount)
                 .HasPrecision(8, 3);
+            #endregion
+            #region User
+            modelBuilder.Entity<User>()
+                .HasIndex(p => p.Email).IsUnique();
             #endregion
         }
     }
