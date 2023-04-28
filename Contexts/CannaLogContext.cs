@@ -79,6 +79,9 @@ namespace Server.Contexts
             #region User
             modelBuilder.Entity<User>()
                 .HasIndex(p => p.Email).IsUnique();
+
+            modelBuilder.Entity<User>()
+                .Property(p => p.IsDeleted).HasDefaultValue(false);
             #endregion
         }
     }

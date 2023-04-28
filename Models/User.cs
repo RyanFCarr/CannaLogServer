@@ -10,7 +10,7 @@ namespace Server.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
     public class UserDto 
     { 
@@ -19,7 +19,7 @@ namespace Server.Models
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string Email { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 
     public class UserSaveDto
@@ -30,7 +30,7 @@ namespace Server.Models
         public string? LastName { get; set; }
         public string Email { get; set; }
         public string? Password { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
