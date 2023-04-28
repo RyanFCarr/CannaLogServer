@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Contexts;
 
@@ -10,9 +11,11 @@ using Server.Contexts;
 namespace Server.Migrations
 {
     [DbContext(typeof(CannaLogContext))]
-    partial class CannaLogContextModelSnapshot : ModelSnapshot
+    [Migration("20230428005904_addUser")]
+    partial class addUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
