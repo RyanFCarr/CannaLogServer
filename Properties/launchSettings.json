@@ -13,11 +13,7 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "MYSQL_SOURCE": "host.docker.internal",
-        "MYSQL_DATABASE": "cannalog",
-        "MYSQL_USER": "svc_cannalog",
-        "MYSQL_PASSWORD": "SimplePW1!",
+        "ASPNETCORE_ENVIRONMENT": "Docker",
         "CORS_ORIGIN": "http://localhost:3000"
       },
       "publishAllPorts": true
@@ -28,10 +24,6 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "MYSQL_SOURCE": "localhost",
-        "MYSQL_DATABASE": "cannalog",
-        "MYSQL_USER": "root",
-        "MYSQL_PASSWORD": "rootroot",
         "CORS_ORIGIN": "http://localhost:3000"
       },
       "dotnetRunMessages": true,
