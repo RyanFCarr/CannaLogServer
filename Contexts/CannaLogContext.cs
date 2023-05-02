@@ -5,21 +5,22 @@ namespace Server.Contexts
 {
     public class CannaLogContext : DbContext
     {
+        private IConfiguration _configuration;
         public DbSet<Plant> Plants { get; set; }
         public DbSet<GrowLog> GrowLogs { get; set; }
         public DbSet<Additive> Additives { get; set; }
         public DbSet<AdditiveAdjustment> AdditiveAdjustments { get; set; }
         public DbSet<AdditiveDosage> AdditiveDosages { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        public CannaLogContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string conn = string.Format(
-                "Data Source={0};Database={1};User Id={2};Password={3};",
-                Environment.GetEnvironmentVariable("MYSQL_SOURCE"),
-                Environment.GetEnvironmentVariable("MYSQL_DATABASE"),
-                Environment.GetEnvironmentVariable("MYSQL_USER"),
-                Environment.GetEnvironmentVariable("MYSQL_PASSWORD")
-                );
+            string conn = _configuration.GetConnectionString("Cannalog");
 
             var dbServerVersion = ServerVersion.AutoDetect(conn);
             optionsBuilder.UseMySql(conn, dbServerVersion)
@@ -31,8 +32,7 @@ namespace Server.Contexts
             ;
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
             #region Plant
             modelBuilder.Entity<Plant>()
                 .Property(p => p.TargetPH)
@@ -75,6 +75,13 @@ namespace Server.Contexts
             modelBuilder.Entity<AdditiveDosage>()
                 .Property(p => p.Amount)
                 .HasPrecision(8, 3);
+            #endregion
+            #region User
+            modelBuilder.Entity<User>()
+                .HasIndex(p => p.Email).IsUnique();
+
+            modelBuilder.Entity<User>()
+                .Property(p => p.IsDeleted).HasDefaultValue(false);
             #endregion
         }
     }

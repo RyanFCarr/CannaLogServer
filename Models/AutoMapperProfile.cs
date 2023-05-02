@@ -26,6 +26,10 @@ namespace Server.Models
 
             CreateMap<Additive, AdditiveDto>();
             CreateMap<AdditiveSaveDto, Additive>();
+
+            CreateMap<UserSaveDto, User>()
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
+            CreateMap<User, UserDto>();
         }
 
         private static List<AdditiveAdjustmentSaveDto>? CreateAdjustments(AdditiveAdjustmentSaveDto? nute, AdditiveAdjustmentSaveDto? ph)
