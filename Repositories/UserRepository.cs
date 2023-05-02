@@ -4,7 +4,11 @@ using System.Linq.Expressions;
 
 namespace Server.Repositories
 {
-    public interface IUserRepository : IRepository<User> { }
+    public interface IUserRepository : IRepository<User> {
+        User? GetOne(string email);
+    }
+
+
     public class UserRepository : IUserRepository {
 
         private readonly CannaLogContext _context;
@@ -31,6 +35,7 @@ namespace Server.Repositories
         public IEnumerable<User> GetAll(Expression<Func<User, bool>> filter) => _context.Users.Where(filter);
 
         public User? GetOne(int id) => _context.Users.Find(id);
+        public User? GetOne(string email) => _context.Users.FirstOrDefault(user => user.Email == email);
 
         public User Update(User user) {
             _context.Update(user);

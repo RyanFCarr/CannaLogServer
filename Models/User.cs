@@ -20,6 +20,7 @@ namespace Server.Models
         public string? LastName { get; set; }
         public string Email { get; set; }
         public bool IsDeleted { get; set; } = false;
+        public string Token { get; set; }
     }
 
     public class UserSaveDto
